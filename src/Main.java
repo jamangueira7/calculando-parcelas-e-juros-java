@@ -1,6 +1,7 @@
 import entities.Contract;
 import entities.Installment;
 import servicies.ContractService;
+import servicies.PaypalService;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -18,7 +19,7 @@ public class Main {
         System.out.print("Número: ");
         int number = sc.nextInt();
 
-        System.out.print("Data(dd/MM/yyyy: ");
+        System.out.print("Data(dd/MM/yyyy): ");
         LocalDate date =LocalDate.parse(sc.next(), fmt);
 
         System.out.print("Valor do contrato: ");
@@ -29,12 +30,12 @@ public class Main {
         System.out.print("Entre com o número de parcelas: ");
         int installments = sc.nextInt();
 
-        ContractService contractService = new ContractService(null);
+        ContractService contractService = new ContractService(new PaypalService());
         contractService.processContract(contract, installments);
 
         System.out.println("Parcelas:");
         for (Installment installment: contract.getInstallments()) {
-            System.out.print(installment);
+            System.out.println(installment);
         }
 
         sc.close();
